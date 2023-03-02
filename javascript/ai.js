@@ -39,17 +39,18 @@ const displayDataCard = arrays =>{
     });
     document.getElementById('btn-see-more-div').innerHTML = `<button type="button" class="btn btn-danger" id="btn-see-more">See More</button>`; 
 }
+const modalContainer = document.getElementById('modal-body')
 const fetchModal = id =>{
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
     fetch(url)
     .then(response => response.json())
     .then(data => displayModal(data.data))
+    modalContainer.innerHTML=""
 }
 
 const displayModal = data =>{
     const {accuracy, description, features, image_link, input_output_examples, integrations, logo, pricing, tool_name}= data
     console.log(data)
-    const modalContainer = document.getElementById('modal-body')
     modalContainer.innerHTML=`
         <div style="background: rgba(235, 87, 87, 0.05); border: 1px solid #EB5757; border-radius: 16px;">
             <h4>${description}</h4>
@@ -83,9 +84,12 @@ const displayModal = data =>{
                 </div>
             </div>
         </div>
-        
         <div>
-            <img src='${image_link[0]}' class="img-fluid">
+            <div><img src='${image_link[0]}' class="img-fluid"></div>
+            <div class="text-center my-4 mx-1">
+                <h4 class="fw-bold">${input_output_examples[0].input ? input_output_examples[0].input : "Can you give any example?" }</h4>
+                <p class="text-body-secondary">${input_output_examples[0].output ? input_output_examples[0].output : "No! Not Yet! Take a break!!!"}</p>
+            </div>
         </div>
                 
     `
