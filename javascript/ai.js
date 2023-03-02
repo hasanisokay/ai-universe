@@ -30,7 +30,7 @@ const displayDataCard = arrays =>{
                                 </div>
                                 </div>
                                 <div>
-                                    <img src="image/arrow.svg" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="displayModal('${id}')">
+                                    <img src="image/arrow.svg" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="fetchModal('${id}')">
                                 </div>
                             </div>
                           </div>
@@ -39,8 +39,26 @@ const displayDataCard = arrays =>{
     });
     document.getElementById('btn-see-more-div').innerHTML = `<button type="button" class="btn btn-danger" id="btn-see-more">See More</button>`; 
 }
-const displayModal = id =>{
-    console.log(id)
+const fetchModal = id =>{
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
+    fetch(url)
+    .then(response => response.json())
+    .then(data => displayModal(data.data))
+}
+
+const displayModal = data =>{
+    const {accuracy, description, features, image_link, input_output_examples, integrations, logo, pricing, tool_name}= data
+    console.log(data)
+    const modalContainer = document.getElementById('modal-body')
+    modalContainer.innerHTML=`
+        <div class="bg-light-subtle">
+        <h4>${description}</h4>
+        </div>
+        <div>
+            <img src='${image_link[0]}' class="img-fluid">
+        </div>
+                
+    `
 }
 
 
