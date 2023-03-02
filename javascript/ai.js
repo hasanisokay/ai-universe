@@ -6,6 +6,7 @@ allDataFetching = ()=>{
 const displayDataCard = arrays =>{
     const cardContainer = document.getElementById('card-container')
     arrays.slice(0,6).forEach(array => {
+        // console.log(array);
         const {features, id, name, image, published_in} = array;
         cardContainer.innerHTML += `
                         <div class="col">
@@ -29,14 +30,16 @@ const displayDataCard = arrays =>{
                                 </div>
                                 </div>
                                 <div>
-                                    <img src="image/arrow.svg">
+                                    <img src="image/arrow.svg" onclick="displayModal('${id}')">
                                 </div>
                             </div>
                           </div>
                         </div>
         `
     });
-    
+}
+const displayModal = id =>{
+    console.log(id)
 }
 
 
