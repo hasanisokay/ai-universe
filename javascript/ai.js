@@ -68,13 +68,17 @@ const displayModal = data =>{
                 <div>
                     <h4 class="fw-bold">Features</h4>
                     <ul>
-                        <li></li>
+                        <li>${features[1].feature_name}</li>
+                        <li>${features[2].feature_name}</li>
+                        <li>${features[3].feature_name}</li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="fw-bold">Integrations</h4>
                     <ul>
-                        <li></li>
+                        <li>${integrations[0] ? integrations[0] :"No data found" }</li>
+                        <li>${integrations[1] ? integrations[1] :""}</li>
+                        <li>${integrations[2] ? integrations[2] :""}</li>
                     </ul>
                 </div>
             </div>
