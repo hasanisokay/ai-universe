@@ -51,20 +51,31 @@ const displayModal = data =>{
     console.log(data)
     const modalContainer = document.getElementById('modal-body')
     modalContainer.innerHTML=`
-        <div class="bg-light-subtle">
+        <div style="background: rgba(235, 87, 87, 0.05); border: 1px solid #EB5757; border-radius: 16px;">
             <h4>${description}</h4>
-            <div class="d-flex gap-4">
-                <div class="bg-body-secondary border rounded text-success fw-bold text-center align-middle">
-                    <p>${pricing[0].price =="No cost" ? "Free of Cost" : pricing[0].price}</p>
-                    <p>Basic</p>
+            <div class="d-flex gap-4 justify-content-center">
+                <div class="bg-white rounded text-success fw-bold px-2 text-center d-flex align-items-center">
+                    <p>${pricing[0].price =="No cost" ? "Free of Cost" : pricing[0].price} <br> <span>Basic</span></p>
+                </div>
+                <div class="bg-white rounded text-warning-emphasis fw-bold px-2 text-center d-flex align-items-center ">
+                    <p>${pricing[1].price =="No cost" ? "Free of Cost" : pricing[1].price} <br> <span>Pro</span></p>
+                </div>
+                <div class="bg-white rounded text-danger fw-bold px-2 text-center d-flex align-items-center">
+                    <p>${pricing[2].price =="No cost" ? "Free of Cost" : pricing[2].price} <br> <span>${pricing[2].plan}</span></p>
+                </div>
+            </div>
+            <div class="d-flex gap-4 ps-4">
+                <div>
+                    <h4 class="fw-bold">Features</h4>
+                    <ul>
+                        <li></li>
+                    </ul>
                 </div>
                 <div>
-                    <p>${pricing[1].price =="No cost" ? "Free of Cost" : pricing[1].price}</p>
-                    <p>Pro</p>
-                </div>
-                <div>
-                    <p>${pricing[2].price =="No cost" ? "Free of Cost" : pricing[2].price}</p>
-                    <p>${pricing[2].plan}</p>
+                    <h4 class="fw-bold">Integrations</h4>
+                    <ul>
+                        <li></li>
+                    </ul>
                 </div>
             </div>
         </div>
