@@ -52,8 +52,23 @@ const displayModal = data =>{
     const modalContainer = document.getElementById('modal-body')
     modalContainer.innerHTML=`
         <div class="bg-light-subtle">
-        <h4>${description}</h4>
+            <h4>${description}</h4>
+            <div class="d-flex gap-4">
+                <div class="bg-body-secondary border rounded text-success fw-bold text-center align-middle">
+                    <p>${pricing[0].price =="No cost" ? "Free of Cost" : pricing[0].price}</p>
+                    <p>Basic</p>
+                </div>
+                <div>
+                    <p>${pricing[1].price =="No cost" ? "Free of Cost" : pricing[1].price}</p>
+                    <p>Pro</p>
+                </div>
+                <div>
+                    <p>${pricing[2].price =="No cost" ? "Free of Cost" : pricing[2].price}</p>
+                    <p>${pricing[2].plan}</p>
+                </div>
+            </div>
         </div>
+        
         <div>
             <img src='${image_link[0]}' class="img-fluid">
         </div>
