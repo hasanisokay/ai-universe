@@ -30,13 +30,14 @@ const displayDataCard = arrays =>{
                                 </div>
                                 </div>
                                 <div>
-                                    <img src="image/arrow.svg" onclick="displayModal('${id}')">
+                                    <img src="image/arrow.svg" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="displayModal('${id}')">
                                 </div>
                             </div>
                           </div>
                         </div>
         `
     });
+    document.getElementById('btn-see-more-div').innerHTML = `<button type="button" class="btn btn-danger" id="btn-see-more">See More</button>`; 
 }
 const displayModal = id =>{
     console.log(id)
