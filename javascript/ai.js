@@ -50,6 +50,7 @@ const displayDataCard = arrays =>{
 
 
 const modalContainer = document.getElementById('modal-body')
+
 // fetch data to show in modal
 const fetchModal = id =>{
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
@@ -58,12 +59,12 @@ const fetchModal = id =>{
     .then(data => displayModal(data.data))
     modalContainer.innerHTML=""
 }
-
+// Modal inner codes here to display data dynamically
 const displayModal = data =>{
     const {accuracy, description, features, id, image_link, input_output_examples, integrations, logo, pricing, tool_name}= data || {}
-    console.log(data)
     modalContainer.innerHTML=`
-        <div style="background: rgba(235, 87, 87, 0.05); border: 1px solid #EB5757; border-radius: 16px;">
+        <div class="col-1"></div>
+        <div class="col-5" style="background: rgba(235, 87, 87, 0.05); border: 1px solid #EB5757; border-radius: 16px;">
             <h4>${description}</h4>
             <div class="d-flex gap-4 justify-content-center">
                 <div class="bg-white rounded text-success fw-bold px-2 text-center d-flex align-items-center">
@@ -92,20 +93,24 @@ const displayModal = data =>{
                 </div>
             </div>
         </div>
-        <div>
-            <div><img src='${image_link[0]}' class="img-fluid"></div>
-            <div class="text-center my-4 mx-1">
-                <h4 class="fw-bold">${input_output_examples ? input_output_examples[0].input : "Can you give any example?" }</h4>
-                <p class="text-body-secondary">${input_output_examples ? input_output_examples[0].output : "No! Not Yet! Take a break!!!"}</p>
-            </div>
+        <div class="col-5 p-4 border rounded">
+            <img src='${image_link[0]}' class="rounded img-fluid" style="position: relative;">
+            <div style="position:absolute; top: 50px; right:130px"><button type="button" id="btn-accuracy" class="btn btn-danger">${accuracy.score ? accuracy.score * 100 +"% accuracy" :""}</button></div>
+            <h4 class="fw-bold text-center my-4 mx-1">${input_output_examples ? input_output_examples[0].input : "Can you give any example?" }</h4>
+            <p class="text-body-secondary text-center my-4 mx-1">${input_output_examples ? input_output_examples[0].output : "No! Not Yet! Take a break!!!"}</p>
         </div>
                 
     `
     integrationsUl(integrations)
     featuresUl(features)
+    // to display none button accuracy when value is null
+    const buttonAccuracy = document.getElementById('btn-accuracy')
+    if(buttonAccuracy.innerText===""){
+        buttonAccuracy.classList.add("d-none")
+    }
 }
 // no data integrations error handler and
-// data integrations adder to list
+// data integrations adding to the list
 const integrationsUl =(integrations)=>{
     const ul = document.getElementById("integrations-ul")    
     if(!integrations){
