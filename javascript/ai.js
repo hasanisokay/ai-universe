@@ -1,12 +1,20 @@
-allDataFetching = ()=>{
+allDataFetching = (seeMoreClicked)=>{
     fetch('https://openapi.programming-hero.com/api/ai/tools')
     .then(response => response.json())
-    .then(data => displayDataCard(data.data.tools))
+    .then(data =>{
+        if(seeMoreClicked){
+            displayDataCard(data.data.tools)
+            document.getElementById('btn-see-more').classList.add("d-none")
+        }
+        else{
+            displayDataCard(data.data.tools.slice(0,6))
+        }
+    })
 }
 const displayDataCard = arrays =>{
     const cardContainer = document.getElementById('card-container')
-    arrays.slice(0,6).forEach(array => {
-        // console.log(array);
+    cardContainer.innerHTML=''
+    arrays.forEach(array => {
         const {features, id, name, image, published_in} = array;
         cardContainer.innerHTML += `
                         <div class="col">
@@ -37,9 +45,12 @@ const displayDataCard = arrays =>{
                         </div>
         `
     });
-    document.getElementById('btn-see-more-div').innerHTML = `<button type="button" class="btn btn-danger" id="btn-see-more">See More</button>`; 
+    document.getElementById('btn-see-more-div').innerHTML = `<button type="button" class="btn btn-danger" id="btn-see-more" onclick="allDataFetching(true)">See More</button>`;
 }
+
+
 const modalContainer = document.getElementById('modal-body')
+// fetch data to show in modal
 const fetchModal = id =>{
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
     fetch(url)
@@ -97,4 +108,3 @@ const displayModal = data =>{
 
 
 
-allDataFetching()
