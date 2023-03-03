@@ -1,4 +1,14 @@
+const spinner =(isLoaded)=>{
+    const spinner = document.getElementById('spinner')
+    if(isLoaded){
+        spinner.classList.add('d-none')
+    }
+    else{
+        spinner.classList.remove('d-none')
+    }
+}
 allDataFetching = (seeMoreClicked)=>{
+    spinner(false);
     fetch('https://openapi.programming-hero.com/api/ai/tools')
     .then(response => response.json())
     .then(data =>{
@@ -11,6 +21,7 @@ allDataFetching = (seeMoreClicked)=>{
         }
     })
 }
+
 const displayDataCard = arrays =>{
     const cardContainer = document.getElementById('card-container')
     cardContainer.innerHTML=''
@@ -46,13 +57,14 @@ const displayDataCard = arrays =>{
         `
     });
     document.getElementById('btn-see-more-div').innerHTML = `<button type="button" class="btn btn-danger" id="btn-see-more" onclick="allDataFetching(true)">See More</button>`;
+    spinner(true)
 }
 
 
 const modalContainer = document.getElementById('modal-body')
-
 // fetch data to show in modal
 const fetchModal = id =>{
+    spinner(false)
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
     fetch(url)
     .then(response => response.json())
@@ -61,6 +73,7 @@ const fetchModal = id =>{
 }
 // Modal inner codes here to display data dynamically
 const displayModal = data =>{
+    
     const {accuracy, description, features, id, image_link, input_output_examples, integrations, logo, pricing, tool_name}= data || {}
     modalContainer.innerHTML=`
         <div class="col-1"></div>
@@ -108,6 +121,7 @@ const displayModal = data =>{
     if(buttonAccuracy.innerText===""){
         buttonAccuracy.classList.add("d-none")
     }
+    spinner(true)
 }
 // no data integrations error handler and
 // data integrations adding to the list
