@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +23,8 @@
             width: 50px;
             height: 50px;
         }
-        #btn-close{
+
+        #btn-close {
             width: 50px;
             height: 50px;
             border: none;
@@ -36,15 +36,16 @@
         }
     </style>
 </head>
+
 <body class="container" onload="allDataFetching(false)">
     <header class="text-center my-4">
         <h1 class="my-4">Ai Universe Hub</h1>
-        <button type="button" class="btn btn-danger">Sort By Date</button>
+        <button type="button" class="btn btn-danger" id="btn-sort-by-date">Sort By Date</button>
         <!-- spinner starts -->
         <div id="spinner">
             <div class="spinner-border text-danger" role="status">
                 <span class="visually-hidden">Loading...</span>
-              </div>
+            </div>
         </div>
         <!-- spinner ends -->
     </header>
@@ -70,7 +71,8 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header d-flex justify-content-end">
-                            <button type="button" data-bs-dismiss="modal" aria-label="Close" id="btn-close" ><img src="./image/cross.svg" class="img-fluid"></button>
+                            <button type="button" data-bs-dismiss="modal" aria-label="Close" id="btn-close"><img
+                                    src="./image/cross.svg" class="img-fluid"></button>
                         </div>
                         <div class="modal-body row gap-2" id="modal-body">
                         </div>
