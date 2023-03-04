@@ -7,25 +7,44 @@ const spinner =(isLoaded)=>{
         spinner.classList.remove('d-none')
     }
 }
-allDataFetching = (seeMoreClicked)=>{
+
+allDataFetching = (seeMoreClicked, isSort=false)=>{
     spinner(false);
     fetch('https://openapi.programming-hero.com/api/ai/tools')
     .then(response => response.json())
     .then(data =>{
         if(seeMoreClicked){
-            displayDataCard(data.data.tools)
+            const arrays = data.data.tools;
+            const newArrays = [...arrays]
             document.getElementById('btn-see-more').classList.add("d-none")
+            const newArraysSorted = newArrays.slice().sort((arr1,arr2)=>Number(new Date(arr1.published_in)) - Number (new Date (arr2.published_in)))
+            if(isSort == false){
+                displayDataCard(arrays)
+                
+            }
+            else{
+                displayDataCard(newArraysSorted)
+            }
         }
-        else{
-            displayDataCard(data.data.tools.slice(0,6))
+        else if (!seeMoreClicked){
+            let arrays = data.data.tools.slice(0,6);
+            const newArrays = [...arrays]
+            const newArraySorted = newArrays.sort((arr1,arr2)=>Number(new Date(arr1.published_in)) - Number (new Date (arr2.published_in)))
+            if(isSort == false){
+                displayDataCard(arrays)
+                
+            }
+            else{
+                displayDataCard(newArraySorted)
+            }
         }
     })
 }
-
 const displayDataCard = arrays =>{
     const cardContainer = document.getElementById('card-container')
     cardContainer.innerHTML=''
     arrays.forEach(array => {
+        // console.log(array)
         const {features, id, name, image, published_in} = array;
         cardContainer.innerHTML += `
                         <div class="col">
@@ -33,10 +52,10 @@ const displayDataCard = arrays =>{
                             <img src="${image}" class="card-img-top" alt="...">
                             <div class="card-body">
                               <h5 class="card-title fw-bold">Features</h5>
-                              <ol style="padding-left: inherit" class="text-secondary">
+                              <ol style="padding-left: inherit" class="text-secondary features" >
                                 <li>${features[0]}</li>
                                 <li>${features[1]}</li>
-                                <li>${features[2]}</li>
+                                <li id="${id}">${features[2] ? features[2]:""}</li>
                               </ol>
                             </div>
                             <hr class="mx-auto">
@@ -55,11 +74,21 @@ const displayDataCard = arrays =>{
                           </div>
                         </div>
         `
+        if(document.getElementById(`${id}`).innerText ==""){
+            document.getElementById(`${id}`).classList.add('d-none')
+        }
     });
-    document.getElementById('btn-see-more-div').innerHTML = `<button type="button" class="btn btn-danger" id="btn-see-more" onclick="allDataFetching(true)">See More</button>`;
     spinner(true)
 }
 
+document.getElementById("btn-sort-by-date").addEventListener('click',function(){
+    if(document.getElementById("btn-see-more").classList.contains("d-none")){
+        allDataFetching(true, true)
+    }
+    else{
+        allDataFetching(false,true)
+    }
+})
 
 const modalContainer = document.getElementById('modal-body')
 // fetch data to show in modal
