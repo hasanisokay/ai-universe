@@ -1,3 +1,4 @@
+// spinner condition checking
 const spinner =(isLoaded)=>{
     const spinner = document.getElementById('spinner')
     if(isLoaded){
@@ -13,6 +14,7 @@ allDataFetching = (seeMoreClicked, isSort=false)=>{
     fetch('https://openapi.programming-hero.com/api/ai/tools')
     .then(response => response.json())
     .then(data =>{
+        // checking if see more clicked
         if(seeMoreClicked){
             const arrays = data.data.tools;
             const newArrays = [...arrays]
@@ -43,8 +45,8 @@ allDataFetching = (seeMoreClicked, isSort=false)=>{
 const displayDataCard = arrays =>{
     const cardContainer = document.getElementById('card-container')
     cardContainer.innerHTML=''
+    // looping in the arrays to get card information 
     arrays.forEach(array => {
-        // console.log(array)
         const {features, id, name, image, published_in} = array;
         cardContainer.innerHTML += `
                         <div class="col">
@@ -80,7 +82,7 @@ const displayDataCard = arrays =>{
     });
     spinner(true)
 }
-
+// sort by date button handler 
 document.getElementById("btn-sort-by-date").addEventListener('click',function(){
     if(document.getElementById("btn-see-more").classList.contains("d-none")){
         allDataFetching(true, true)
